@@ -1,0 +1,18 @@
+<ng-container *ngIf="store.vm$ | async as vm">
+  <div class="image">
+    {{ vm.currentPhoto  }}
+  </div>
+  <div>
+    <button (click)="prev()">Prev</button>
+    <button (click)="next()">Next</button>
+    <button (click)="play()">Play</button>
+    <button (click)="pause()">Pause</button>
+    <button (click)="toggleLoop()">Loop ({{ vm.loop }})</button>
+    <button (click)="toggleDirection()">Direction ({{ vm.direction }})</button>
+
+  </div>
+  <form [formGroup]="formGroup">
+    <label>Playback speed</label>
+    <input formControlName="speed" type="number"/>
+  </form>
+</ng-container>
