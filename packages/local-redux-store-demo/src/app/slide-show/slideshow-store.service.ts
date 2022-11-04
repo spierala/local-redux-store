@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { LocalReduxStore } from "@mini-rx/local-redux-store";
 import { action, on, payload, reducer } from "ts-action";
 import { ofType } from "ts-action-operators";
-import { combineLatest, filter, interval, map, merge, startWith, switchMap, takeUntil, withLatestFrom } from "rxjs";
+import { combineLatest, filter, interval, map, merge, switchMap, takeUntil, withLatestFrom } from "rxjs";
 
 export type Direction = 'forward' | 'backward';
 
@@ -119,7 +119,6 @@ export class SlideshowStoreService extends LocalReduxStore<SlideShowState> {
     // Register Effect
     this.effect(this.actions$.pipe(
       ofType(play, updateSpeed),
-      startWith(updateCurrentPhoto()),
       withLatestFrom(this.speed$),
       switchMap(([, speed]) =>
         interval(speed).pipe(takeUntil(this.stopInterval$))

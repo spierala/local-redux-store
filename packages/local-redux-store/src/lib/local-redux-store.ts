@@ -44,7 +44,7 @@ export class LocalReduxStore<T extends object> {
   destroy() {
     this.sub.unsubscribe();
   }
-  
+
   ngOnDestroy() {
     this.destroy();
   }
