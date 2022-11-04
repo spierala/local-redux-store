@@ -1,1 +1,5 @@
-<app-slide-show [photos]="['image-1.jpg', 'image-2.jpg', 'image-3.jpg', 'image-4.jpg']"></app-slide-show>
+<h1>Slideshow with Local Redux Store</h1>
+
+<button (click)="toggleIsSlideShowVisible()">Toggle Slideshow Visibility</button>
+
+<app-slide-show *ngIf="isSlideShowVisible" [photos]="['image-1.jpg', 'image-2.jpg', 'image-3.jpg', 'image-4.jpg']"></app-slide-show>

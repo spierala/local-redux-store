@@ -19,6 +19,7 @@ import { Subject, takeUntil } from "rxjs";
   selector: 'app-slide-show',
   templateUrl: './slide-show.component.html',
   styleUrls: ['./slide-show.component.scss'],
+  providers: [SlideshowStoreService]
 })
 export class SlideShowComponent {
   private destroy = new Subject<void>();

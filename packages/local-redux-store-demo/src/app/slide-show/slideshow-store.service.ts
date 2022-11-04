@@ -72,9 +72,7 @@ export const slideShowReducer = reducer<SlideShowState>(
   })
 );
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class SlideshowStoreService extends LocalReduxStore<SlideShowState> {
   private isFirstPhoto$ = this.select(({index, loop, direction}) => {
     if (!loop && direction === 'backward') {

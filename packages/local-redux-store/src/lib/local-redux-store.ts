@@ -2,16 +2,14 @@ import { BehaviorSubject, map, Observable, observeOn, queueScheduler, Subject, S
 import { Action, Actions, Reducer } from "./models";
 import { select } from "./utils";
 import { defaultEffectsErrorHandler } from "./default-effects-error-handler";
-import { Directive } from "@angular/core";
 
-@Directive() // TODO make framework agnostic
 export class LocalReduxStore<T extends object> {
   // ACTIONS
   private actionsSource = new Subject<Action>();
   actions$: Actions = this.actionsSource.asObservable();
 
   // APP STATE
-  private stateSource = new BehaviorSubject<T>(undefined as unknown as T); // Init App State with empty object
+  private stateSource = new BehaviorSubject<T>(undefined as unknown as T);
   state$: Observable<T> = this.stateSource.asObservable();
 
   private sub: Subscription;
@@ -44,7 +42,7 @@ export class LocalReduxStore<T extends object> {
   destroy() {
     this.sub.unsubscribe();
   }
-  
+
   ngOnDestroy() {
     this.destroy();
   }

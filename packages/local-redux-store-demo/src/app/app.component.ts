@@ -6,9 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'local-redux-store-demo';
+  isSlideShowVisible = true
 
-  constructor() {
-
+  toggleIsSlideShowVisible() {
+    this.isSlideShowVisible = !this.isSlideShowVisible;
   }
 }
