@@ -12,8 +12,7 @@ import {
   updateSpeed
 } from "./slideshow-store.service";
 import { FormControl, FormGroup } from "@angular/forms";
-import { Subject, takeUntil } from "rxjs";
-
+import { map, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-slide-show',
@@ -29,6 +28,10 @@ export class SlideShowComponent {
     speed: this.speedFc,
   });
 
+  private updateSpeedAction$ = this.speedFc.valueChanges.pipe(
+    map(v => updateSpeed(v))
+  )
+
   @Input()
   set photos(photos: string[]) {
     this.store.dispatch(updatePhotos(photos));
@@ -40,9 +43,7 @@ export class SlideShowComponent {
       .pipe(takeUntil(this.destroy))
       .subscribe((v) => this.speedFc.setValue(v));
 
-    this.speedFc.valueChanges
-      .pipe(takeUntil(this.destroy))
-      .subscribe((v) => this.store.dispatch(updateSpeed(v)));
+    this.store.dispatch(this.updateSpeedAction$);
   }
 
   ngOnDestroy(): void {
