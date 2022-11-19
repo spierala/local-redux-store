@@ -1,4 +1,4 @@
-import { BehaviorSubject, map, Observable, observeOn, queueScheduler, Subject, Subscription } from "rxjs";
+import { BehaviorSubject, isObservable, map, Observable, observeOn, queueScheduler, Subject, Subscription } from 'rxjs';
 import { Action, Actions, Reducer } from "./models";
 import { select } from "./utils";
 import { defaultEffectsErrorHandler } from "./default-effects-error-handler";
@@ -26,8 +26,12 @@ export class LocalReduxStore<T extends object> {
     this.dispatch({type: 'init-store'})
   }
 
-  dispatch(action: Action) {
-    this.actionsSource.next(action);
+  dispatch(action: Action | Observable<Action>) {
+    if (isObservable(action)) {
+      this.sub.add(action.subscribe(this.actionsSource))
+    } else {
+      this.actionsSource.next(action);
+    }
   }
 
   select<R>(mapFn: (state: T) => R): Observable<R> {
